@@ -53,23 +53,13 @@ if [ "$1" = "/gerrit-start.sh" ]; then
   [ -z "${LISTEN_ADDR}" ] || set_gerrit_config sshd.listenAddress "${LISTEN_ADDR}"
 
   #Section database
-  if [ "${DATABASE_TYPE}" = 'postgresql' ]; then
+  if [ -n "${DATABASE_TYPE}" ]; then
     set_gerrit_config database.type "${DATABASE_TYPE}"
-    [ -z "${DB_PORT_5432_TCP_ADDR}" ]    || set_gerrit_config database.hostname "${DB_PORT_5432_TCP_ADDR}"
-    [ -z "${DB_PORT_5432_TCP_PORT}" ]    || set_gerrit_config database.port "${DB_PORT_5432_TCP_PORT}"
-    [ -z "${DB_ENV_POSTGRES_DB}" ]       || set_gerrit_config database.database "${DB_ENV_POSTGRES_DB}"
-    [ -z "${DB_ENV_POSTGRES_USER}" ]     || set_gerrit_config database.username "${DB_ENV_POSTGRES_USER}"
-    [ -z "${DB_ENV_POSTGRES_PASSWORD}" ] || set_secure_config database.password "${DB_ENV_POSTGRES_PASSWORD}"
-  fi
-
-  #Section database
-  if [ "${DATABASE_TYPE}" = 'mysql' ]; then
-    set_gerrit_config database.type "${DATABASE_TYPE}"
-    [ -z "${DB_PORT_3306_TCP_ADDR}" ] || set_gerrit_config database.hostname "${DB_PORT_3306_TCP_ADDR}"
-    [ -z "${DB_PORT_3306_TCP_PORT}" ] || set_gerrit_config database.port "${DB_PORT_3306_TCP_PORT}"
-    [ -z "${DB_ENV_MYSQL_DB}" ]       || set_gerrit_config database.database "${DB_ENV_MYSQL_DB}"
-    [ -z "${DB_ENV_MYSQL_USER}" ]     || set_gerrit_config database.username "${DB_ENV_MYSQL_USER}"
-    [ -z "${DB_ENV_MYSQL_PASSWORD}" ] || set_secure_config database.password "${DB_ENV_MYSQL_PASSWORD}"
+    [ -z "${DB_HOST}" ]    || set_gerrit_config database.hostname "${DB_HOST}"
+    [ -z "${DB_PORT}" ]    || set_gerrit_config database.port "${DB_PORT}"
+    [ -z "${DB_DB}" ]       || set_gerrit_config database.database "${DB_DB}"
+    [ -z "${DB_USER}" ]     || set_gerrit_config database.username "${DB_USER}"
+    [ -z "${DB_PASSWORD}" ] || set_secure_config database.password "${DB_PASSWORD}"
   fi
 
   #Section auth
