@@ -11,8 +11,8 @@ ENV GERRIT_USER gerrit2
 ENV GERRIT_INIT_ARGS ""
 
 # Proxy settings - do not use when building on internet host!
-ENV http_proxy 'http://http-proxy.cezdata.corp:8080'
-ENV https_proxy 'http://http-proxy.cezdata.corp:8080'
+#ENV http_proxy 'http://http-proxy.cezdata.corp:8080'
+#ENV https_proxy 'http://http-proxy.cezdata.corp:8080'
 
 # Add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN adduser -D -h "${GERRIT_HOME}" -g "Gerrit User" -s /sbin/nologin "${GERRIT_USER}"
